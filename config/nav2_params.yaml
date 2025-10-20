@@ -39,6 +39,13 @@ amcl:
     z_max: 0.05
     z_rand: 0.5
     z_short: 0.05
+    set_initial_pose: true            # 一启动就自动把下面数值当成初始位姿发出去
+    initial_pose.x: -2.0              # 机器人中心在 map 系下的 X 坐标（米）
+    initial_pose.y: -0.5              # 机器人中心在 map 系下的 Y 坐标（米）
+    initial_pose.yaw: 0.0             # 机器人朝向（弧度，0=正对 map X 轴，正=逆时针）
+    initial_pose.covariance_x: 0.25   # X 方向初始不确定度（米²），越小越相信该值
+    initial_pose.covariance_y: 0.25   # Y 方向不确定度
+    initial_pose.covariance_yaw: 0.0685 # 角度不确定度（≈ 0.25 rad² ≈ 14°）
 
 bt_navigator:
   ros__parameters:
