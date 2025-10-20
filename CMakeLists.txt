@@ -33,7 +33,7 @@ install(DIRECTORY
 # 安装 Python 脚本
 install(PROGRAMS
   scripts/multi_goal_patrol.py
-  DESTINATION lib/${PROJECT_NAME}
+  DESTINATION lib/${PROJECT_NAME}/scripts
 )
 
 # 安装地图文件（后续建图后放入）
@@ -46,6 +46,12 @@ install(DIRECTORY
 install(DIRECTORY
   rviz/
   DESTINATION share/${PROJECT_NAME}/rviz
+)
+
+# 安装配置文件
+install(DIRECTORY
+  config/
+  DESTINATION share/${PROJECT_NAME}/config
 )
 
 ament_package()
