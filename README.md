@@ -31,6 +31,9 @@ source install/setup.bash
 > 启动顺序：**Gazebo → Nav2 → RViz**  
 > 全部 `source install/setup.bash` 后再执行！
 
+- 运行多目标巡逻脚本（终端 4）  
+`ros2 run turtlebot3_nav2_demo multi_goal_patrol.py`
+
 ---
 
 ## 3 常见问题速查
