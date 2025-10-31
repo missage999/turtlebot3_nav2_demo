@@ -63,8 +63,8 @@ controller_server:
     min_vel_y: 0.0
     acc_lim_x: 0.25
     acc_lim_theta: 0.5
-    yaw_goal_tolerance: 0.08
-    xy_goal_tolerance: 0.1
+    yaw_goal_tolerance: 0.1
+    xy_goal_tolerance: 0.15
     prune_plan: true
     controller_plugins: ["FollowPath"]
     FollowPath:
@@ -89,8 +89,8 @@ controller_server:
       vtheta_samples: 20
       sim_time: 1.7
       transform_tolerance: 0.2
-      xy_goal_tolerance: 0.1
-      trans_stopped_velocity: 0.06
+      xy_goal_tolerance: 0.15
+      trans_stopped_velocity: 0.1
       short_circuit_trajectory_evaluation: true
       stateful: true
       prune_plan: true
