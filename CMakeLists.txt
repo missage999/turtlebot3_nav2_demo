@@ -33,7 +33,8 @@ install(DIRECTORY
 # 安装 Python 脚本
 install(PROGRAMS
   scripts/multi_goal_patrol.py
-  DESTINATION lib/${PROJECT_NAME}/scripts
+  scripts/moving_obstacle_controller.py
+  DESTINATION lib/${PROJECT_NAME}
 )
 
 # 安装地图文件（后续建图后放入）
@@ -52,6 +53,12 @@ install(DIRECTORY
 install(DIRECTORY
   config/
   DESTINATION share/${PROJECT_NAME}/config
+)
+
+# 安装模型文件（障碍物模型等）
+install(DIRECTORY
+  models/
+  DESTINATION share/${PROJECT_NAME}/models
 )
 
 ament_package()

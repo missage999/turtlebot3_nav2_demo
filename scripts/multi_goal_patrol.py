@@ -7,7 +7,6 @@ from nav2_msgs.action import NavigateToPose
 from geometry_msgs.msg import PoseStamped
 from tf_transformations import quaternion_from_euler
 from action_msgs.msg import GoalStatus
-import time
 
 
 class PatrolNode(Node):
@@ -40,7 +39,7 @@ class PatrolNode(Node):
         # 定义巡逻点：(x, y, yaw)
         patrol_points = [
             ( 0.500, -1.750,  0.508),
-            (-0.551,  5.000,  1.500),
+            (-0.551,  1.565,  1.500),
             ( 1.823, -0.004, -1.580),
             (-0.965,  2.014, -2.240),
             (-1.991, -0.489,  0.008),

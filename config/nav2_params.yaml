@@ -54,7 +54,7 @@ bt_navigator:
 controller_server:
   ros__parameters:
     use_sim_time: true
-    controller_frequency: 20.0
+    controller_frequency: 30.0
     min_vel_x: 0.0
     max_vel_x: 0.22      # 限制最大线速度（防漂移）
     min_vel_theta: 0.0
@@ -87,7 +87,7 @@ controller_server:
       vx_samples: 20
       vy_samples: 5
       vtheta_samples: 20
-      sim_time: 1.7
+      sim_time: 2.0  # 增加轨迹模拟时间，让机器人能更好地预测和避开移动障碍物
       transform_tolerance: 0.2
       xy_goal_tolerance: 0.15
       trans_stopped_velocity: 0.1
@@ -95,7 +95,7 @@ controller_server:
       stateful: true
       prune_plan: true
       critics: ["RotateToGoal", "Oscillation", "BaseObstacle", "GoalAlign", "PathAlign", "PathDist", "GoalDist"]
-      BaseObstacle.scale: 0.02
+      BaseObstacle.scale: 0.05  # 增加障碍物 critic 权重，使机器人更重视避障
       PathAlign.scale: 32.0
       PathAlign.forward_point_distance: 0.1
       GoalAlign.scale: 24.0
@@ -112,8 +112,8 @@ planner_server:
     planner_plugins: ["GridBased"]
     GridBased:
       plugin: "nav2_navfn_planner/NavfnPlanner"
-      tolerance: 0.5
-      use_astar: false
+      tolerance: 0.8  # 增加路径规划容忍度，避免陷入局部最小值
+      use_astar: true  # 启用A*算法，通常比Dijkstra更适合动态环境
       allow_unknown: true
 
 global_costmap:
@@ -137,18 +137,22 @@ global_costmap:
           clearing: true
           marking: true
           data_type: "LaserScan"
+          obstacle_range: 3.0  # 障碍物检测范围增加到3米
+          raytrace_range: 3.5  # 光线追踪范围增加到3.5米
       static_layer:
         plugin: "nav2_costmap_2d::StaticLayer"
         map_subscribe_transient_local: true
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
+        inflation_radius: 0.1  # 膨胀层：从障碍物边缘向外扩展0.1米的代价梯度区域
+        cost_scaling_factor: 5.0  # 温和的代价值衰减
       always_send_full_costmap: true
 
 local_costmap:
   local_costmap:
     ros__parameters:
-      update_frequency: 5.0
-      publish_frequency: 2.0
+      update_frequency: 10.0
+      publish_frequency: 5.0
       global_frame: "odom"
       robot_base_frame: "base_link"
       use_sim_time: true
@@ -167,5 +171,9 @@ local_costmap:
           clearing: true
           marking: true
           data_type: "LaserScan"
+          obstacle_range: 2.5  # 局部地图障碍物检测范围2.5米
+          raytrace_range: 3.0  # 局部地图光线追踪范围3米
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
+        inflation_radius: 0.08  # 局部膨胀层：从障碍物边缘扩展0.08米的紧密代价区域
+        cost_scaling_factor: 10.0  # 较高的代价值，确保精确避障
