@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <sdf version="1.6">
   <model name="moving_obstacle">
-    <pose>0 0 0.1 0 0 0</pose>
+    <pose>0 0 0.1 0 0 0</pose>  <!-- 表示模型坐标系在世界坐标系中的位置和姿态 -->
 
     <link name="chassis">
-      <pose>0 0 0 0 0 0</pose>
+      <pose>0 0 0 0 0 0</pose>  <!-- 表示链接坐标系在父链接坐标系（模型坐标系）中的位置和姿态 -->
       <inertial>
         <mass>5.0</mass>
         <inertia>
@@ -12,7 +12,6 @@
           <iyy>0.05</iyy>
           <izz>0.05</izz>
         </inertia>
-        <pose>0 0 0 0 0 0</pose>
       </inertial>
       <visual name="visual">
         <geometry><box><size>0.2 0.2 0.2</size></box></geometry>
@@ -25,7 +24,7 @@
     </link>
 
     <link name="left_wheel">
-      <pose>0 0.125 -0.07 1.57079632679 0 0</pose>
+      <pose>0 0.125 -0.07 1.57079632679 0 0</pose>  <!-- 表示链接坐标系在父链接坐标系（模型坐标系）中的位置和姿态，这里会旋转链接坐标系 -->
       <inertial>
         <mass>0.5</mass>
         <inertia><ixx>0.005</ixx><iyy>0.005</iyy><izz>0.005</izz></inertia>
@@ -41,7 +40,7 @@
     </link>
 
     <link name="right_wheel">
-      <pose>0 -0.125 -0.07 1.57079632679 0 0</pose>
+      <pose>0 -0.125 -0.07 1.57079632679 0 0</pose>  <!-- 表示链接坐标系在父链接坐标系（模型坐标系）中的位置和姿态，这里会旋转链接坐标系 -->
       <inertial>
         <mass>0.5</mass>
         <inertia><ixx>0.005</ixx><iyy>0.005</iyy><izz>0.005</izz></inertia>
@@ -61,7 +60,7 @@
     <joint name="left_wheel_joint" type="revolute">
       <parent>chassis</parent>
       <child>left_wheel</child>
-      <axis><xyz>0 0 -1</xyz></axis>
+      <axis><xyz>0 0 -1</xyz></axis>  <!-- 表示关节轴在当前坐标系（链接坐标系轮子）中的方向，因为前面旋转了这里是-z轴 -->
       <limit><lower>-1e16</lower><upper>1e16</upper></limit>
       <dynamics><damping>10</damping><friction>1</friction></dynamics>
     </joint>
@@ -69,7 +68,7 @@
     <joint name="right_wheel_joint" type="revolute">
       <parent>chassis</parent>
       <child>right_wheel</child>
-      <axis><xyz>0 0 -1</xyz></axis>
+      <axis><xyz>0 0 -1</xyz></axis>  <!-- 表示关节轴在当前坐标系（链接坐标系轮子）中的方向，因为前面旋转了这里是-z轴 -->
       <limit><lower>-1e16</lower><upper>1e16</upper></limit>
       <dynamics><damping>10</damping><friction>1</friction></dynamics>
     </joint>
@@ -79,7 +78,7 @@
       <ros><namespace>/moving_obstacle</namespace></ros>
       <left_joint>left_wheel_joint</left_joint>
       <right_joint>right_wheel_joint</right_joint>
-      <wheel_separation>0.24</wheel_separation>
+      <wheel_separation>0.25</wheel_separation>
       <wheel_diameter>0.06</wheel_diameter>
       <max_wheel_torque>10</max_wheel_torque>
       <max_wheel_acceleration>1.0</max_wheel_acceleration>
