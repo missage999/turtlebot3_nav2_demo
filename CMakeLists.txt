@@ -7,10 +7,6 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
-find_package(rclcpp REQUIRED)
-find_package(rclpy REQUIRED)
-find_package(nav2_bringup REQUIRED)
-find_package(slam_toolbox REQUIRED)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -24,10 +20,14 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-# 安装 launch 文件
+# 安装所有文件目录
 install(DIRECTORY
-  launch/
-  DESTINATION share/${PROJECT_NAME}/launch
+  launch
+  maps
+  rviz
+  config
+  models
+  DESTINATION share/${PROJECT_NAME}
 )
 
 # 安装 Python 脚本
@@ -35,30 +35,6 @@ install(PROGRAMS
   scripts/multi_goal_patrol.py
   scripts/moving_obstacle_controller.py
   DESTINATION lib/${PROJECT_NAME}
-)
-
-# 安装地图文件（后续建图后放入）
-install(DIRECTORY
-  maps/
-  DESTINATION share/${PROJECT_NAME}/maps
-)
-
-# 安装 Rviz 配置
-install(DIRECTORY
-  rviz/
-  DESTINATION share/${PROJECT_NAME}/rviz
-)
-
-# 安装配置文件
-install(DIRECTORY
-  config/
-  DESTINATION share/${PROJECT_NAME}/config
-)
-
-# 安装模型文件（障碍物模型等）
-install(DIRECTORY
-  models/
-  DESTINATION share/${PROJECT_NAME}/models
 )
 
 ament_package()
